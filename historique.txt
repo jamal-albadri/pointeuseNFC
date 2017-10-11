@@ -1,0 +1,10 @@
+11.10.2017{
+	Android Studio:
+		- Récupération des informations du Tag via les constantes EXTRA_ID / EXTRA_TAG (id pour tél = dynamique, id tag = statique)
+		- Implémentation de la connexion à la base de données (pas encore testé)
+	
+	Web:
+		- Ajout d'un formulaire de création de collaborateurs (pratiquement fini)
+		- Changement du MLD
+		- Recherche sur la méthode REST (json)
+}
