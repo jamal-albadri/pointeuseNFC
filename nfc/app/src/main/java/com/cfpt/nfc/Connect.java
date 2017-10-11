@@ -14,15 +14,16 @@ public class Connect {
 
     private Connection con;
     ResultSet res;
-    ArrayList result = new ArrayList();
     final  String ADRESSE = "jdbc:mysql://192.168.43.165:3306";
     final String NOM_BASE = "db_target";
     final String NOM_UTILISATEUR = "mbp-di-ottavio";
     final String PASSWORD ="root";
 
     public void Connect(String requete){
+
         // Essai de connexion à la base de donnée
         try {
+            res.close();
             // Chargement du driver
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -39,21 +40,23 @@ public class Connect {
             e.getMessage();
         }
     }
-    private  void ResulToList(ResultSet rs)
+    private  ArrayList ResultToList()
     {
+         ArrayList rs = new ArrayList();
         try {
-            while (rs.next()) {
-                result.add(rs.getString(1));
+            while (res.next()) {
+                rs.add(res.getString(1));
             }
         }
         catch(Exception e)
         {
             e.getMessage();
         }
+        return rs;
     }
     private void ResulToArray(ResultSet rs)
     {
-        try {
+        /*try {
             while (rs.next()) {
                 result.add(rs.getString(1));
             }
@@ -61,17 +64,16 @@ public class Connect {
         catch(Exception e)
         {
             e.getMessage();
-        }
+        }*/
     }
     public boolean Login(String email,String password)
     {
         try {
             Connect("SELECT `prenom` FROM `test` WHERE `prenom`=\""+email+"\"");
-            if (!task.getListeRes().isEmpty()){
+            if (!((ArrayList)ResultToList()).isEmpty()){
                 Connect("SELECT `mdp` FROM `test` WHERE `prenom`=\""+email+"\"");
 
-                if(task.getListeRes().get(1).equals(password)){
-                    System.out.println("FUCKING YEAAAAAH");
+                if(ResultToList().get(0).equals(password)){
                     return true;
                 }
             }
@@ -79,14 +81,6 @@ public class Connect {
             return false;
         }
         return false;
-    }
-
-    public ResultSet GetResultat() {
-        return res;
-    }
-
-    public ArrayList getListeRes(){
-        return result;
     }
 }
 
